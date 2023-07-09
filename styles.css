@@ -1,0 +1,84 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    padding: 0;
+    margin: 0;
+}
+.container{
+    padding-block: 3rem; 
+    --padding: 1rem;
+    --max-width: 1100px;
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-bottom: 0;
+    padding: calc(var(--padding - 6px));
+}
+img{
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    aspect-ratio: 1/1;
+}
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+    gap: clamp(10px,15px,30px);
+}
+.blur{
+    position: relative;
+    display: block;
+    aspect-ratio: 1/1;
+    background-position: center;
+    background-size: cover;
+}
+.blur.loaded > img{
+    opacity: 1;
+}
+.blur > img{
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+}
+/* doing some animations like wait to load */
+.blur::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    animation-name: pulse;
+    animation-iteration-count: infinite;
+    animation-duration: 2.5s;
+    background-color: rgba(255, 255, 255, .2);
+}
+@keyframes pulse{
+    from{
+        background-color: rgba(255, 255, 255, .2);
+
+    }
+    50%{
+        background-color: rgba(255, 255, 255, 0);
+
+    }
+    to{
+        background-color: rgba(255, 255, 255, .2);
+
+    }
+}
+/* removing the animation when loaded*/
+.blur.loaded::before{
+    content: none;
+    animation: none;
+}
+/* animation end*/
+/* auther credit*/
+.auther{
+    text-align: center;
+    padding: .7rem;
+    font-size: 1rem;
+    padding-bottom: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+img:is(:hover,:focus){
+    outline: 4px solid red;
+}
